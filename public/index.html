@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Runemeia Portfolio - 自然言語処理からVR開発まで、テクノロジーエンスージアストのポートフォリオです。"
+    >
+    <title>Runemeia Portfolio</title>
+    <style>
+      /* 変数定義 */
+      :root {
+        --primary-color: #1a1a1a;
+        --secondary-color: #333;
+        --accent-color: #7c4dff;
+        --text-color: #f5f5f5;
+        --transition-time: 0.3s;
+      }
+
+      /* グローバルリセット */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* ボディ基本設定 */
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
+
+      /* コンテナ */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* ヘッダー */
+      header {
+        background-color: rgba(26, 26, 26, 0.9);
+        backdrop-filter: blur(5px);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        padding: 20px 0;
+        transition: all var(--transition-time);
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--accent-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        margin-top: 20px;
+      }
+
+      nav ul li {
+        margin: 0 15px;
+      }
+
+      nav ul li a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color var(--transition-time);
+        position: relative;
+      }
+
+      nav ul li a:hover {
+        color: var(--accent-color);
+      }
+
+      nav ul li a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: var(--accent-color);
+        transition: width var(--transition-time);
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      /* ヒーローセクション */
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/api/placeholder/1200/800') center/cover no-repeat;
+        opacity: 0.2;
+        z-index: 0;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .hero p {
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: var(--accent-color);
+        color: white;
+        padding: 12px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all var(--transition-time);
+        border: 2px solid var(--accent-color);
+      }
+
+      .btn:hover {
+        background-color: transparent;
+        color: var(--accent-color);
+      }
+
+      /* セクション全体 */
+      .section {
+        padding: 100px 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .section-title h2 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title h2::after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 3px;
+        background-color: var(--accent-color);
+        bottom: -10px;
+        left: 25%;
+      }
+
+      /* 自己紹介セクション */
+      .about-content {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+
+      .about-img,
+      .about-text {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .about-img img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .interests ul {
+        list-style: none;
+        margin-top: 10px;
+      }
+
+      .interests li::before {
+        content: "• ";
+      }
+
+      /* プロジェクトカード */
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .card {
+        background-color: var(--secondary-color);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform var(--transition-time);
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+      }
+
+      .card-img {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform var(--transition-time);
+      }
+
+      .card:hover .card-img img {
+        transform: scale(1.1);
+      }
+
+      .card-content {
+        padding: 20px;
+      }
+
+      .card-content h3 {
+        margin-bottom: 15px;
+        color: var(--accent-color);
+      }
+
+      .card-content p {
+        margin-bottom: 20px;
+      }
+
+      /* ソーシャルリンク */
+      .social-links {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+      }
+
+      .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        margin: 0 10px;
+        transition: all var(--transition-time);
+        text-decoration: none;
+      }
+
+      .social-links a:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-5px);
+      }
+
+      /* フッター */
+      footer {
+        background-color: var(--secondary-color);
+        padding: 30px 0;
+        text-align: center;
+      }
+
+      .footer-content p {
+        margin-bottom: 20px;
+      }
+
+      /* テーマ切替ボタン */
+      .theme-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--accent-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all var(--transition-time);
+        z-index: 1000;
+        border: none;
+        outline: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1);
+      }
+
+      /* ライトテーマ */
+      body.light-theme {
+        --primary-color: #f5f5f5;
+        --secondary-color: #e0e0e0;
+        --text-color: #333;
+      }
+
+      /* レスポンシブ設定 */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 36px;
+        }
+
+        .section {
+          padding: 60px 0;
+        }
+
+        .header-content {
+          flex-direction: column;
+        }
+
+        nav ul {
+          margin-top: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">RUNEMEIA</div>
+          <nav>
+            <ul>
+              <li><a href="#home">ホーム</a></li>
+              <li><a href="#about">自己紹介</a></li>
+              <li><a href="#projects">プロジェクト</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main>
+      <!-- ヒーローセクション -->
+      <section id="home" class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h1>Runemeia<br>ルネメイア</h1>
+            <p>
+              自然言語処理からVR開発まで、好奇心の赴くままに探求する<br>
+              テクノロジーエンスージアスト。生成AIとクリエイティブツールの<br>
+              可能性を追求しています。
+            </p>
+            <a href="#projects" class="btn">プロジェクトを見る</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 自己紹介セクション -->
+      <section id="about" class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>自己紹介</h2>
+          </div>
+          <div class="about-content">
+            <div class="about-img">
+              <img
+                src="/api/placeholder/400/400"
+                alt="Runemeia プロフィール"
+                loading="lazy"
+              >
+            </div>
+            <div class="about-text">
+              <h3 style="color: var(--accent-color);">
+                挨拶
+              </h3>
+              <p>
+                はじめまして、Runemeia（ルネメイア）です。技術の世界で興味の赴くままに探求する旅を続けています。<br>
+                自然言語処理からVRまで、多くの分野に魅了され、3Dモデリング、仮想現実、など興味赴くままに活動しています。<br>
+              </p>
+              <div class="interests">
+                <h4 style="color: var(--accent-color);">興味</h4>
+                <ul>
+                  <li>自然言語処理</li>
+                  <li>3Dモデリング (Blender)</li>
+                  <li>VR空間デザイン (VRChat)</li>
+                  <li>X運用</li>
+                  <li>ウェブデザイン</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- プロジェクトセクション -->
+      <section id="projects" class="section" style="background-color: rgba(51, 51, 51, 0.5);">
+        <div class="container">
+          <div class="section-title">
+            <h2>プロジェクト</h2>
+          </div>
+          <div class="card-container">
+            <div class="card">
+              <div class="card-img">
+                <img
+                  src="/api/placeholder/400/300"
+                  alt="Blenderプロジェクト"
+                  loading="lazy"
+                >
+              </div>
+              <div class="card-content">
+                <h3>Blenderモデリング</h3>
+                <p>
+                  Blenderを使用した3Dモデリングプロジェクト。<br>
+                  キャラクターからインテリアまで幅広い制作を行っています。
+                </p>
+                <a
+                  href="#"
+                  class="btn"
+                  style="padding: 8px 20px; font-size: 14px;"
+                >詳細を見る</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-img">
+                <img
+                  src="/api/placeholder/400/300"
+                  alt="VRChatワールド"
+                  loading="lazy"
+                >
+              </div>
+              <div class="card-content">
+                <h3>VRChatワールド</h3>
+                <p>
+                  VRChatで公開している没入型の仮想空間。<br>
+                  ユーザーと交流するための環境を構築しています。
+                </p>
+                <a
+                  href="#"
+                  class="btn"
+                  style="padding: 8px 20px; font-size: 14px;"
+                >詳細を見る</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-img">
+                <img
+                  src="/api/placeholder/400/300"
+                  alt="勉強記録"
+                  loading="lazy"
+                >
+              </div>
+              <div class="card-content">
+                <h3>勉強</h3>
+                <p>
+                  学んだ知識やプロジェクトの記録を残すための取り組み。
+                </p>
+                <a
+                  href="#"
+                  class="btn"
+                  style="padding: 8px 20px; font-size: 14px;"
+                >詳細を見る</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- フッター -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2025 Runemeia (ルネメイア). All Rights Reserved.</p>
+          <div class="social-links">
+            <a href="https://x.com/runemeia" title="X（Twitter）">𝕏</a>
+            <a href="#" title="GitHub">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- テーマ切替ボタン -->
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      aria-label="テーマ切替"
+    >☀️</button>
+
+    <script>
+      // デバウンス関数（スクロールイベント最適化用）
+      function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+      }
+
+      // スキルアニメーション（今後のセクション追加用）
+      function animateSkills() {
+        const skillBars = document.querySelectorAll('.skill-bar .bar span');
+        skillBars.forEach(bar => {
+          const width = bar.dataset.width || bar.style.width;
+          bar.style.width = '0';
+          setTimeout(() => {
+            bar.style.width = width;
+          }, 300);
+        });
+      }
+
+      // スクロール時のヘッダー変化処理
+      const onScroll = debounce(function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+          header.style.padding = '10px 0';
+          header.style.backgroundColor = 'rgba(26, 26, 26, 0.95)';
+        } else {
+          header.style.padding = '20px 0';
+          header.style.backgroundColor = 'rgba(26, 26, 26, 0.9)';
+        }
+
+        // スキルセクションのアニメーション（未使用の場合は将来の拡張用）
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+          const rect = skillsSection.getBoundingClientRect();
+          if (rect.top <= window.innerHeight && rect.bottom >= 0 && !skillsSection.classList.contains('animated')) {
+            skillsSection.classList.add('animated');
+            animateSkills();
+          }
+        }
+      }, 50);
+
+      window.addEventListener('scroll', onScroll);
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.getElementById('themeToggle');
+
+        themeToggle.addEventListener('click', function() {
+          document.body.classList.toggle('light-theme');
+          themeToggle.textContent = document.body.classList.contains('light-theme') ? '🌙' : '☀️';
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+              behavior: 'smooth'
+            });
+          });
+        });
+
+        // スキルバーアニメーション開始（該当セクションがあれば）
+        setTimeout(animateSkills, 500);
+      });
+    </script>
+  </body>
+</html>
