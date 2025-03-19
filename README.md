@@ -8,7 +8,7 @@
 
 自身のプライベートで行ってきた事や、勉強・遊び等を蓄積していきたいと思い作るサイト。
 
-- [蓄積](https://github.com/Runemeia)
+- [サイト](https://github.com/Runemeia)
 
 ### 呟き
 
